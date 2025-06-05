@@ -1251,12 +1251,12 @@ header {
   }
   
   .bdt-ep-image-accordion-title {
-    font-size: 1.2rem !important;
+    font-size: 1.3rem !important;
     margin-bottom: 8px;
   }
   
   .bdt-ep-image-accordion-text {
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1.3;
   }
 }
