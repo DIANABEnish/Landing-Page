@@ -171,19 +171,7 @@ const Services = () => {
           </div>
         ))}
       </div>
-      
-      {/* אינדיקטורים למובייל */}
-      {isMobile && (
-        <div className="mobile-indicators">
-          {translations.services.map((_, index) => (
-            <div 
-              key={index}
-              className={`indicator ${activeIndex === index ? 'active' : ''}`}
-              onClick={() => setActiveIndex(index)}
-            />
-          ))}
-        </div>
-      )}
+    
     </section>
   );
 };
