@@ -754,7 +754,7 @@ header {
   }
   
   .about-text p {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     line-height: 1.6;
   }
   
@@ -875,7 +875,7 @@ header {
 .step-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #2F5448;
+  color: #2b4c42;
   margin: 0;
   line-height: 1.3;
   font-family: var(--e-global-typography-text-font-family, "spacer");
@@ -949,7 +949,7 @@ header {
   }
   
   .step-content p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.6;
   }
 }
