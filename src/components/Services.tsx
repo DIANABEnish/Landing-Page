@@ -1,17 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from './LanguageContext';
 
 const Services = () => {
   const { language } = useLanguage();
-  const [activeIndex, setActiveIndex] = useState<number | null>(4);
+  const [activeIndex, setActiveIndex] = useState(4); // תמיד יש תמונה פעילה
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Refs עבור פונקציות המגע
+  const containerRef = useRef<HTMLDivElement>(null);
+  const startXRef = useRef(0);
+  const isDraggingRef = useRef(false);
 
   const translations = {
     services: [
       {
         title: {
           en: 'Living Room Design',
-          he: 'עיצוב סלון'
+          he: 'עיצוב חלל מגורים'
         },
         description: {
           en: 'Characterizing the office will include the functional requirements of the business combined with a special design. The employee in the company will give greater output to its owners.',
@@ -78,18 +83,70 @@ const Services = () => {
   }, []);
 
   const handleMouseEnter = (index: number) => {
-    setActiveIndex(index);
+    if (!isMobile) {
+      setActiveIndex(index);
+    }
   };
 
   const handleClick = (index: number) => {
     if (isMobile) {
-      setActiveIndex(activeIndex === index ? null : index);
+      // אם לוחצים על התמונה הפעילה, עוברים לבאה
+      if (activeIndex === index) {
+        const nextIndex = (index + 1) % translations.services.length;
+        setActiveIndex(nextIndex);
+      } else {
+        setActiveIndex(index);
+      }
     }
+  };
+
+  // Touch handlers for mobile swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!isMobile) return;
+    startXRef.current = e.touches[0].clientX;
+    isDraggingRef.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isMobile) return;
+    const currentX = e.touches[0].clientX;
+    const diffX = Math.abs(currentX - startXRef.current);
+    
+    // אם המרחק גדול מ-10px, זה נחשב להחלקה
+    if (diffX > 10) {
+      isDraggingRef.current = true;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!isMobile || !isDraggingRef.current) return;
+    
+    const endX = e.changedTouches[0].clientX;
+    const diffX = startXRef.current - endX;
+    const threshold = 50; // מינימום 50px להחלקה
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0) {
+        // החלקה שמאלה - תמונה הבאה
+        setActiveIndex((prev) => (prev + 1) % translations.services.length);
+      } else {
+        // החלקה ימינה - תמונה קודמת
+        setActiveIndex((prev) => (prev - 1 + translations.services.length) % translations.services.length);
+      }
+    }
+    
+    isDraggingRef.current = false;
   };
 
   return (
     <section id="services" className="services-section">
-      <div className="bdt-ep-image-accordion">
+      <div 
+        className="bdt-ep-image-accordion"
+        ref={containerRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {translations.services.map((service, index) => (
           <div 
             key={index}
@@ -114,6 +171,19 @@ const Services = () => {
           </div>
         ))}
       </div>
+      
+      {/* אינדיקטורים למובייל */}
+      {isMobile && (
+        <div className="mobile-indicators">
+          {translations.services.map((_, index) => (
+            <div 
+              key={index}
+              className={`indicator ${activeIndex === index ? 'active' : ''}`}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
