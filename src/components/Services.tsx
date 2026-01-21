@@ -11,15 +11,15 @@ const Services = () => {
   const startXRef = useRef(0);
   const isDraggingRef = useRef(false);
 
-  const translations = {
+const translations = {
     services: [
-      {
+   {
         title: {
           en: 'Living Room Design',
           he: 'עיצוב חלל מגורים'
         },
         description: {
-          en: 'Characterizing the office will include the functional requirements of the business combined with a special design. The employee in the company will give greater output to its owners.',
+          en: 'Functional office design that combines business needs with special aesthetics to boost employee productivity.',
           he: 'אפיון המשרד יכלול את הדרישות הפונקציונליות של העסק בשילוב עיצוב מיוחד. העובד בחברה ייתן תפוקה גדולה יותר לבעליה.'
         },
         image: 'livingRoom.jpg'
@@ -30,7 +30,7 @@ const Services = () => {
           he: 'עיצוב חדר ישיבות'
         },
         description: {
-          en: 'Designing the store from the shop window to attracting the customer to enter the store, creating differentiation and difference that is reflected in uncompromising design in order to attract the customer to the experience.',
+          en: 'From storefront to interior, creating distinctive design that attracts customers and delivers an unforgettable experience.',
           he: 'עיצוב החנות החל מחלון הראווה ועד למשיכת הלקוח להיכנס לחנות, יצירת בידול ושוני המתבטאים בעיצוב בלתי מתפשר במטרה למשוך את הלקוח לחוויה.'
         },
         image: 'conferenceRoom.jpg'
@@ -41,7 +41,7 @@ const Services = () => {
           he: 'עיצוב בתי קפה ומסעדות'
         },
         description: {
-          en: 'The colorfulness of the business, the logo, the graphic language and the brand will be reflected in the design of the cafe/restaurant. The customer will remember the brand through the taste experience and the appearance of the designed space will want to stay, order and return to the place.',
+          en: 'Design that reflects your brand identity through color, graphics, and ambiance. Creating spaces where customers want to stay and return.',
           he: 'הססגוניות של העסק, הלוגו, השפה הגרפית והמותג יבואו לידי ביטוי בעיצוב בית הקפה/מסעדה. הלקוח יזכור את המותג דרך חווית הטעם והמראה של החלל המעוצב ירצה להישאר, להזמין ולחזור למקום.'
         },
         image: 'restaurant.jpg'
@@ -52,7 +52,7 @@ const Services = () => {
           he: 'עיצוב לובי'
         },
         description: {
-          en: 'An elegant and inviting entrance hall to the building, which contains a variety of types of tenants, the lobby should be classic, luxurious but still gives a warm feeling of home while ensuring proper use of space and lighting.',
+          en: 'Elegant entrance halls that blend classic luxury with warm, welcoming atmosphere while optimizing space and lighting.',
           he: 'חלל כניסה אלגנטי ומזמין לבניין, המכיל מגוון סוגי דיירים, הלובי צריך להיות קלאסי, מפואר אך עדיין נותן תחושה חמה של בית תוך שמירה על ניצול נכון של החלל ותאורה.'
         },
         image: 'lobby.jpg'
@@ -63,14 +63,13 @@ const Services = () => {
           he: 'עיצוב אולמות אירועים'
         },
         description: {
-          en: 'Designing an event hall is an experience of a crazy, big and powerful show that will not be forgotten. It is important to plan and utilize the space so that the owner of the hall can make the most of the area for the benefit of seating tables and increasing the profit from the event, alongside a spacious and beautifully designed experience.',
+          en: 'Unforgettable event spaces that maximize seating capacity and profit while creating a spectacular, beautifully designed experience.',
           he: 'עיצוב אולם אירועים הוא חוויה של מופע מטורף, גדול וחזק שלא ישכח. חשוב לתכנן ולנצל את החלל כך שבעל האולם יוכל למקסם את השטח לטובת הושבה של שולחנות והגדלת הרווח מהאירוע, לצד חוויה מרווחת ומעוצבת להפליא.'
         },
         image: 'eventHall.jpg'
       }
-    ]
+     ]
   };
-
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth <= 768);
