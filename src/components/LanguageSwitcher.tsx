@@ -10,19 +10,17 @@ const LanguageSwitcher = () => {
         onClick={() => setLanguage('en')}
         className={language === 'en' ? 'active' : ''}
       >
-        <img 
-          src="//www.daniel-elmaliach.co.il/sinogol/flags/32/en-us.png" 
-          alt="English" 
-        />
+     
+          <img src="//www.daniel-elmaliach.co.il/wp-content/plugins/gtranslate/flags/32/en-us.png" height="32" width="32" alt="English"/>
+     
       </button>
       <button 
         onClick={() => setLanguage('he')}
         className={language === 'he' ? 'active' : ''}
       >
-        <img 
-          src="//www.daniel-elmaliach.co.il/sinogol/flags/32/iw.png" 
-          alt="Hebrew" 
-        />
+        
+          <img src="//www.daniel-elmaliach.co.il/wp-content/plugins/gtranslate/flags/32/iw.png" height="32" width="32" alt="Hebrew"/>
+      
       </button>
 
       <style>{`
