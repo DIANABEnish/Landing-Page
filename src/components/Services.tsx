@@ -3,10 +3,10 @@ import { useLanguage } from './LanguageContext';
 
 const Services = () => {
   const { language } = useLanguage();
-  const [activeIndex, setActiveIndex] = useState(4); // תמיד יש תמונה פעילה
+  const [activeIndex, setActiveIndex] = useState(4);
   const [isMobile, setIsMobile] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([4]));
   
-  // Refs עבור פונקציות המגע
   const containerRef = useRef<HTMLDivElement>(null);
   const startXRef = useRef(0);
   const isDraggingRef = useRef(false);
@@ -82,6 +82,30 @@ const Services = () => {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
+  // טעינה עצלה של תמונות - טוען תמונה רק כשהיא נכנסת לviewport או הופכת לפעילה
+  useEffect(() => {
+    const preloadImage = (index: number) => {
+      if (!loadedImages.has(index)) {
+        const img = new Image();
+        img.src = `/images/${translations.services[index].image}`;
+        img.onload = () => {
+          setLoadedImages(prev => new Set([...prev, index]));
+        };
+      }
+    };
+
+    // טוען את התמונה הפעילה ואת השכנות שלה
+    preloadImage(activeIndex);
+    const nextIndex = (activeIndex + 1) % translations.services.length;
+    const prevIndex = (activeIndex - 1 + translations.services.length) % translations.services.length;
+    
+    // טוען את התמונות השכנות עם עיכוב קטן
+    setTimeout(() => {
+      preloadImage(nextIndex);
+      preloadImage(prevIndex);
+    }, 100);
+  }, [activeIndex, loadedImages, translations.services]);
+
   const handleMouseEnter = (index: number) => {
     if (!isMobile) {
       setActiveIndex(index);
@@ -90,7 +114,6 @@ const Services = () => {
 
   const handleClick = (index: number) => {
     if (isMobile) {
-      // אם לוחצים על התמונה הפעילה, עוברים לבאה
       if (activeIndex === index) {
         const nextIndex = (index + 1) % translations.services.length;
         setActiveIndex(nextIndex);
@@ -100,7 +123,6 @@ const Services = () => {
     }
   };
 
-  // Touch handlers for mobile swipe functionality
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!isMobile) return;
     startXRef.current = e.touches[0].clientX;
@@ -112,7 +134,6 @@ const Services = () => {
     const currentX = e.touches[0].clientX;
     const diffX = Math.abs(currentX - startXRef.current);
     
-    // אם המרחק גדול מ-10px, זה נחשב להחלקה
     if (diffX > 10) {
       isDraggingRef.current = true;
     }
@@ -123,14 +144,12 @@ const Services = () => {
     
     const endX = e.changedTouches[0].clientX;
     const diffX = startXRef.current - endX;
-    const threshold = 50; // מינימום 50px להחלקה
+    const threshold = 50;
 
     if (Math.abs(diffX) > threshold) {
       if (diffX > 0) {
-        // החלקה שמאלה - תמונה הבאה
         setActiveIndex((prev) => (prev + 1) % translations.services.length);
       } else {
-        // החלקה ימינה - תמונה קודמת
         setActiveIndex((prev) => (prev - 1 + translations.services.length) % translations.services.length);
       }
     }
@@ -152,7 +171,10 @@ const Services = () => {
             key={index}
             className={`bdt-ep-image-accordion-item ${activeIndex === index ? 'active' : ''}`}
             style={{ 
-              backgroundImage: `url(/images/${service.image})`,
+              backgroundImage: loadedImages.has(index) 
+                ? `url(/images/${service.image})` 
+                : 'none',
+              backgroundColor: loadedImages.has(index) ? 'transparent' : '#333'
             }}
             onMouseEnter={() => handleMouseEnter(index)}
             onClick={() => handleClick(index)}
@@ -171,7 +193,6 @@ const Services = () => {
           </div>
         ))}
       </div>
-    
     </section>
   );
 };
