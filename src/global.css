@@ -432,7 +432,7 @@ header {
   
   .mobile-nav a,
   .mobile-nav .nav-button {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 500;
     color: var(--primary-color);
     text-decoration: none;
@@ -1244,7 +1244,7 @@ header {
 
 @media (max-width: 480px) {
   .bdt-ep-image-accordion {
-    height: 350px; /* הגדלת הגובה מעט */
+    height: 400px; /* הגדלת הגובה מעט */
   }
   
   .bdt-ep-image-accordion-item {
@@ -1261,12 +1261,12 @@ header {
   }
   
   .bdt-ep-image-accordion-title {
-    font-size: 1.7rem !important;
+    font-size: 1.8rem !important;
     margin-bottom: 8px;
   }
   
   .bdt-ep-image-accordion-text {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     line-height: 1.3;
   }
 }
@@ -1278,7 +1278,7 @@ header {
   }
   
   .bdt-ep-image-accordion-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.3;
   }
 }
