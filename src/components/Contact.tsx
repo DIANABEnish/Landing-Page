@@ -142,35 +142,128 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="elementor-sticky-section">
-        <div className="elementor-container">
-          <div className="bdt-dual-button bdt-ep-button-wrapper">
-            <a href="tel:052-123-4567" className="bdt-btn-a bdt-ep-button">
-              <div className="bdt-btn-content-wrap">
-                <div className="bdt-btn-icon bdt-a-icon">
-                  <FaPhoneAlt />
-                </div>
-                <div className="bdt-btn-text">{translations.sticky.call[language]}</div>
-              </div>
-            </a>
-            
-            <span className="bdt-separator">{translations.sticky.or[language]}</span>
-            
-            <a 
-              href="https://api.whatsapp.com/send?phone=972526225529&text=Hi%20I%20would%20like%20a%20consultation%20call%20thank%20you"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bdt-btn-b bdt-ep-button"
-            >
-              <div className="bdt-btn-content-wrap">
-                <div className="bdt-btn-icon bdt-btn-b-icon">
-                  <FaWhatsapp />
-                </div>
-                <div className="bdt-btn-text">{translations.sticky.whatsapp[language]}</div>
-              </div>
-            </a>
-          </div>
-        </div>
+      <section className="sticky-contact-bar">
+        <style>{`
+          .sticky-contact-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 20px 16px;
+            background: linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.85) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+          }
+
+          .sticky-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 13px 28px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            white-space: nowrap;
+            flex: 1;
+            max-width: 220px;
+          }
+
+          .sticky-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.92;
+          }
+
+          .sticky-btn:active {
+            transform: translateY(0px);
+          }
+
+          .sticky-btn svg {
+            font-size: 16px;
+            flex-shrink: 0;
+          }
+
+          .sticky-btn-call {
+            background: transparent;
+            color: #e8dcc8;
+            border: 1.5px solid rgba(232,220,200,0.5);
+            box-shadow: inset 0 0 0 0 rgba(232,220,200,0.08);
+          }
+
+          .sticky-btn-call:hover {
+            border-color: rgba(232,220,200,0.9);
+            box-shadow: 0 4px 24px rgba(232,220,200,0.1);
+            color: #f5ede0;
+          }
+
+          .sticky-btn-whatsapp {
+            background: transparent;
+            color: #e8dcc8;
+            border: 1.5px solid rgba(232,220,200,0.5);
+          }
+
+          .sticky-btn-whatsapp svg {
+            color: #4dbb6e;
+          }
+
+          .sticky-btn-whatsapp:hover {
+            border-color: rgba(232,220,200,0.9);
+            box-shadow: 0 4px 24px rgba(232,220,200,0.1);
+            color: #f5ede0;
+          }
+
+          .sticky-separator {
+            color: rgba(255,255,255,0.2);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+          }
+
+          @media (max-width: 400px) {
+            .sticky-contact-bar {
+              padding: 10px 12px 14px;
+              gap: 8px;
+            }
+            .sticky-btn {
+              padding: 12px 16px;
+              font-size: 12px;
+              gap: 7px;
+              letter-spacing: 0.04em;
+            }
+            .sticky-separator {
+              display: none;
+            }
+          }
+        `}</style>
+
+        <a href="tel:052-123-4567" className="sticky-btn sticky-btn-call">
+          <FaPhoneAlt />
+          <span>{translations.sticky.call[language]}</span>
+        </a>
+
+        <span className="sticky-separator">{translations.sticky.or[language]}</span>
+
+        <a
+          href="https://api.whatsapp.com/send?phone=972526225529&text=Hi%20I%20would%20like%20a%20consultation%20call%20thank%20you"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sticky-btn sticky-btn-whatsapp"
+        >
+          <FaWhatsapp />
+          <span>{translations.sticky.whatsapp[language]}</span>
+        </a>
       </section>
       
       <div className="contact-spacer"></div>
