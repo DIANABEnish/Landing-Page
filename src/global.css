@@ -1740,7 +1740,9 @@ header {
 footer.footer,
 .footer-section,
 section.footer {
-
+  background: #232323 !important;
+  background-color: #232323 !important;
+  padding: 40px 0 100px 0;
   position: relative;
   order: 2; /* Ensures footer comes after sticky bar */
   animation: fadeInUp 0.6s ease-out;
